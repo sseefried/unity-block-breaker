@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 83982462514584630}
   - component: {fileID: 83982462514584631}
   m_Layer: 0
-  m_Name: Block
-  m_TagString: Untagged
+  m_Name: 2-Hit Block
+  m_TagString: Breakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 93e8a381a66d747cc8b8e5dfc5d29a76, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.68485224, g: 0.8490566, b: 0.7859712, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -94,7 +94,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0014305115, y: -0.001430273}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -105,7 +105,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.4685278, y: 0.46852827}
   m_EdgeRadius: 0
 --- !u!114 &83982462514584631
 MonoBehaviour:
@@ -119,3 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37754afd037534782968257f9064d510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  breakSound: {fileID: 8300000, guid: d825184cd29ad48bca525afb496d0230, type: 3}
+  blockSparklesVFX: {fileID: 100000, guid: 7d846c02296ef4dc4abff04ce3e5262c, type: 3}
+  maxHits: 2
+  hitSprites:
+  - {fileID: 21300000, guid: 734368e88bfe64d3e83c448d500e4541, type: 3}
+  timesHit: 0
