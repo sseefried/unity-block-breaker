@@ -136,10 +136,9 @@ MonoBehaviour:
   yPush: 12
   paddle1: {fileID: 0}
   ballSounds:
-  - {fileID: 8300000, guid: a25b58357cddb41f0aa6808c625dbdbc, type: 3}
-  - {fileID: 8300000, guid: 6a917d4d66e414b8d9617bf99361b184, type: 3}
-  - {fileID: 8300000, guid: 3cabd23ce5762426697b235e18dff6cc, type: 3}
-  - {fileID: 8300000, guid: 1bb082db0ba76480dbbc5b0a6ac54814, type: 3}
+  - {fileID: 8300000, guid: 0e686ef8c3252473996d2ab4e505362d, type: 3}
+  - {fileID: 8300000, guid: 9a974c583d7f14386956f993819ca89c, type: 3}
+  - {fileID: 8300000, guid: 3d0dddd7c0761401ea3349b508a5bf22, type: 3}
   randomFactor: 1
 --- !u!82 &1186719972
 AudioSource:

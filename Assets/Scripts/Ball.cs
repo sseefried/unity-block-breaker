@@ -7,11 +7,11 @@ public class Ball : MonoBehaviour
     [SerializeField] float yPush = 15f;
     [SerializeField] Paddle paddle1;
     [SerializeField] AudioClip[] ballSounds;
-    [SerializeField] float randomFactor = 0.2f;
      
     // State
     Vector2 paddleToBallVector;
     bool hasStarted = false;
+    Vector2 relVelocityEnterCollision;
 
     // Cached component references
     AudioSource thisAudioSource;
@@ -33,6 +33,7 @@ public class Ball : MonoBehaviour
             LockBallToPaddle();
             LaunchOnMouseClick();
         }
+        relVelocityEnterCollision = thisRigidBody2D.velocity;
     }
 
     public void MoveBallBackToPaddle()
@@ -59,17 +60,22 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
-        float randomAngle = Random.Range(-randomFactor, randomFactor);
+        float maxRotate = 10f;
+        float minRotate = 2f;
 
         if (hasStarted)
         {
+
+            float vectorAngle = Vector2.Angle(thisRigidBody2D.velocity, new Vector2(1f, 0f)); // Angle from horizontal
+            float modVal = minRotate + Mathf.Abs(Mathf.Cos(2 * Mathf.Deg2Rad * vectorAngle)) * (maxRotate - minRotate);
+            float randomAngle = Random.Range(0, modVal);
+            float rotation = Vector2.SignedAngle(thisRigidBody2D.velocity, relVelocityEnterCollision); // rotation from before to after collision
+            float sign = rotation >= 0 ? 1 : -1;
+            thisRigidBody2D.velocity = Quaternion.Euler(0, 0, sign * randomAngle) * thisRigidBody2D.velocity;
+
             AudioClip clip = ballSounds[Random.Range(0, ballSounds.Length)];
-            // PlayOneShot will not be interrupted
             thisAudioSource.PlayOneShot(clip);
-            thisRigidBody2D.velocity = Quaternion.Euler(0, 0, randomAngle) * thisRigidBody2D.velocity;
         }
     }
-
 
 }

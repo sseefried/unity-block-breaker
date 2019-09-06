@@ -5,20 +5,20 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     // configuration parameters
-    [SerializeField] AudioClip breakSound;
     [SerializeField] GameObject blockSparklesVFX;
 	[SerializeField] Sprite[] hitSprites;
 
     // cached references
     Level level;
-    GameSession gameStatus;
+    GameSession gameSession;
+    AudioSource breakSoundSource;
 
-	// state
-	[SerializeField] int timesHit; // TODO only serialized for debug purposes
+    // state
+    [SerializeField] int timesHit; // TODO only serialized for debug purposes
 
     void Start()
     {
-        gameStatus = FindObjectOfType<GameSession>();
+        gameSession = FindObjectOfType<GameSession>();
         IncrementBreakableBlocks();
     }
 
@@ -71,10 +71,9 @@ public class Block : MonoBehaviour
 
 	private void DestroyBlock()
     {
-        Vector3 cameraPosition = Camera.main.transform.position;
-        AudioSource.PlayClipAtPoint(breakSound, cameraPosition, 1.0f);
+        gameSession.PlayBlockBreakSound();
+        gameSession.AddToScore();
         level.BlockWasBroken();
-        gameStatus.AddToScore();
         TriggerSparklesVFX();
         Destroy(gameObject);
     }

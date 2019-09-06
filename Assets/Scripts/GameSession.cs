@@ -16,6 +16,9 @@ public class GameSession : MonoBehaviour
     [SerializeField] int currentScore = 0; 
     [SerializeField] public int lives = 3;
 
+    // Cached references
+    AudioSource thisAudioSource;
+
     private void Awake()
     {
         int gameStatusCount = FindObjectsOfType<GameSession>().Length;
@@ -39,12 +42,18 @@ public class GameSession : MonoBehaviour
     {
         scoreText.text = currentScore.ToString();
         livesText.text = "LIVES: " + lives.ToString();
+        thisAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Time.timeScale = gameSpeed; 
+    }
+
+    public void PlayBlockBreakSound()
+    {
+        thisAudioSource.Play();
     }
 
     public void AddToScore()
