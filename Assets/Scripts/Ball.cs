@@ -7,6 +7,8 @@ public class Ball : MonoBehaviour
     [SerializeField] float yPush = 15f;
     [SerializeField] Paddle paddle1;
     [SerializeField] AudioClip[] ballSounds;
+    [SerializeField] float minRotate = 2f; // degress
+    [SerializeField] float maxRotate = 10f; //degrees
      
     // State
     Vector2 paddleToBallVector;
@@ -60,15 +62,22 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        float maxRotate = 10f;
-        float minRotate = 2f;
-
         if (hasStarted)
         {
+            /* Horizontal angles are boring and vertical angles are boring
+             * We minimise boredom by rotating the balls reflection angle
+             * slightly by a random amount. When the ball is close to vertical
+             * or horizontal the range of the random number is larger. When
+             * it is close to a 45 degress angle the range is smaller.
+             * It can never be less than minRotate and never more than maxRotate
+             */
 
             float vectorAngle = Vector2.Angle(thisRigidBody2D.velocity, new Vector2(1f, 0f)); // Angle from horizontal
-            float modVal = minRotate + Mathf.Abs(Mathf.Cos(2 * Mathf.Deg2Rad * vectorAngle)) * (maxRotate - minRotate);
-            float randomAngle = Random.Range(0, modVal);
+            // We use the cos function on twice vectorAngle so that horizontal/vertical (i.e. 0,90,180,270 degrees) yields a value of 1 and
+            // any 45 degree value yields a zero.
+            float scaleAmount = Mathf.Abs(Mathf.Cos(2 * Mathf.Deg2Rad * vectorAngle));
+            float range = minRotate +  scaleAmount * (maxRotate - minRotate); // between minRotate and maxRotate
+            float randomAngle = Random.Range(0, range);
             float rotation = Vector2.SignedAngle(thisRigidBody2D.velocity, relVelocityEnterCollision); // rotation from before to after collision
             float sign = rotation >= 0 ? 1 : -1;
             thisRigidBody2D.velocity = Quaternion.Euler(0, 0, sign * randomAngle) * thisRigidBody2D.velocity;
