@@ -64,7 +64,7 @@ public class Ball : MonoBehaviour
     {
         if (hasStarted)
         {
-            /* Horizontal angles are boring and vertical angles are boring
+            /* Both horizontal and vertical angles are boring.
              * We minimise boredom by rotating the balls reflection angle
              * slightly by a random amount. When the ball is close to vertical
              * or horizontal the range of the random number is larger. When

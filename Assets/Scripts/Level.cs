@@ -7,6 +7,7 @@ public class Level : MonoBehaviour
 {
     SceneLoader sceneLoader;
     [SerializeField] int breakableBlocks; // Serialized for debugging purposes (read only)
+    [SerializeField] bool isLastLevel; // false more most levels
 
     void Start()
 	{
@@ -34,8 +35,15 @@ public class Level : MonoBehaviour
     {
 		if (breakableBlocks == 0)
 		{
-			sceneLoader.LoadNextScene();
-		}
+            if (isLastLevel)
+            {
+                SceneManager.LoadScene("Completion");
+            }
+            else
+            {
+                sceneLoader.LoadNextScene();
+            }
+        }
 	}
 
 
