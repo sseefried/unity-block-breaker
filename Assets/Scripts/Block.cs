@@ -45,6 +45,7 @@ public class Block : MonoBehaviour
     private void HandleHit()
 	{
 		timesHit++;
+        gameSession.AddToScore();
         int maxHits = hitSprites.Length + 1;
 		if (timesHit >= maxHits)
 		{
@@ -55,7 +56,7 @@ public class Block : MonoBehaviour
 			ShowNextHitSprite();
 		}
 
-	}
+    }
 
     private void ShowNextHitSprite()
 	{
@@ -73,7 +74,6 @@ public class Block : MonoBehaviour
 	private void DestroyBlock()
     {
         gameSession.PlayBlockBreakSound();
-        gameSession.AddToScore();
         level.BlockWasBroken();
         TriggerSparklesVFX();
         Destroy(gameObject);
